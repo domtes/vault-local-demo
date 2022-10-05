@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  vault-server:
+    image: vault:latest
+    ports:
+      - "8200:8200"
+    environment:
+      VAULT_DEV_LISTEN_ADDRESS: "0.0.0.0:8200"
+      VAULT_DEV_ROOT_TOKEN_ID: "vault-plaintext-root-token"
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - ./plugins:/vault/plugins
+    command: vault server -dev -dev-plugin-dir=/vault/plugins
